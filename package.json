@@ -1,0 +1,14 @@
+{
+	"name": "Subject-A",
+	"version": "0.1.0",
+	"description": "My First Discord Bot Experiment",
+	"main": "index.js",
+	"author": "dusty-blue",
+	"dependencies": {
+		"discord.js": "^11.5.0"
+	},
+	"scripts": {
+		"start":"node index.js",
+		"debug": "nodemon --inspect index.js"
+	}
+}
