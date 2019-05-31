@@ -4,7 +4,7 @@ const { token } = require('./auth.json');
 const client = new Client();
 
 const { createCanvas, loadImage } = require('canvas');
-const Chart = require('chart.js');
+const Chart = require('node-chartjs');
 
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}! ID is ${client.user.id}`);
@@ -20,10 +20,10 @@ client.on('message', async msg => {
 			voted[user.id] = reaction.emoji.id ? reaction.emoji.id : reaction.emoji.name;
             return reactions.includes(reaction.emoji.id) | reactions.includes(reaction.emoji.name); 
 		}
-        const collector = msg.createReactionCollector(filter, { time:14000});
+        const collector = msg.createReactionCollector(filter, { time:7000});
         collector.on('collect', r => console.log(`Collected ${r.emoji.name}`));
         const counts = {};
-        collector.on('end', collected => {
+        collector.on('end', async collected => {
             collected.forEach(em => {
 				const code = em.emoji.id ? em.emoji.id : em.emoji.name;
 				em.users.forEach(usr => {
@@ -34,9 +34,10 @@ client.on('message', async msg => {
                 // counts[code] = em.count - 1;
 			});
             console.log(voted);
-            const canvas = drawGraph(voted);
+            const graph = await drawGraph(voted);
             try {
-                const attachment = new Attachment(canvas.toBuffer(), 'awesome.png');
+                const buffer = await graph.toBuffer('image/png');
+                const attachment = new Attachment(buffer, 'awesome.png');
                 msg.channel.send(printResults(counts), attachment); 
             } catch(e) {
                 console.error('Failed to send results with error:\n' + e);
@@ -75,35 +76,54 @@ function printResults(result){
     return msgReply;
 }
 
-function drawGraph(voted) {
-    const canvas = createCanvas(200, 200);
-    const ctx = canvas.getContext('2d');
-    // Write "Awesome!"
-    ctx.font = '30px Impact'
-    let gradient = ctx.createLinearGradient(0, 0, 200, 0);
-    gradient.addColorStop(0, "magenta");
-    gradient.addColorStop(0.5, "blue");
-    gradient.addColorStop(1.0, "red");
-    // Fill with gradient
-    ctx.fillStyle = gradient;
-    ctx.rotate(0.1);
-    ctx.fillText('Awesome!', 50, 100);
-
-    // Draw line under text
-    const text = ctx.measureText('Awesome!');
-    ctx.strokeStyle = 'rgba(0,0,0,0.5)';
-    ctx.beginPath();
-    ctx.lineTo(50, 102);
-    ctx.lineTo(50 + text.width, 102);
-    ctx.stroke();
-    /*
-    const fs = require('fs');
-    const out = fs.createWriteStream(__dirname + '/test.jpeg');
-    const stream = canvas.createJPEGStream();
-    stream.pipe(out);
-    out.on('finish', () => console.log('The JPEG file was created.'));
-    */
-    return canvas;
+ async function drawGraph(voted) {
+    const chart = new Chart(200, 200);
+    const chartJsOptions = {
+        type: 'bar',
+        data: {
+            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            datasets: [{
+                label: '# of Votes',
+                data: [12, 19, 3, 5, 2, 3],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+     };
+     
+     try {
+         await chart.makeChart(chartJsOptions);
+         await chart.drawChart();
+         await chart.toFile('test_image.png');
+     }
+     catch (e) {
+         console.error("Failed to create chart with error : \n" + e);
+     }
+     return chart;
 }
 
 client.login(token);

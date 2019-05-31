@@ -3,6 +3,7 @@ Subject-A is a simple bot for discord to make poll with custom reactions of your
 ## Getting Started
 ### node-canvas & chart.js
 Follow the  installation instructions seen here [link](https://www.npmjs.com/package/canvas)
+Note: node-chartjs is at the time of writing only compatbile with chartjs@2.4.x
 
 ## Usage
 type the following
