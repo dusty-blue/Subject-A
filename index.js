@@ -2,7 +2,7 @@
 //const { token } = require('./auth.json');
 const token = process.env.TOKEN;
 const port = process.env.PORT;
-console.log(`This is port ${ port }.... not really `);
+console.log(`Running on port ${ port }`);
 
 // const emojiCharacters = require('./emojiCharacters');
 const client = new Client();
