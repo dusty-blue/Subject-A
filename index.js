@@ -9,6 +9,7 @@ const client = new Client();
 
 const { createCanvas, loadImage } = require('canvas');
 const Chart = require('node-chartjs');
+const pollTime = 120000; //6000=1 min time is in milliseconds 
 
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}! ID is ${client.user.id}`);
@@ -34,7 +35,7 @@ client.on('message', async msg => {
                 return false;
             }*/
 		}
-        const collector = msg.createReactionCollector(filter, { time: 10000 }); //600000
+        const collector = msg.createReactionCollector(filter, { time: pollTime });  
         collector.on('collect', r => console.log(`Collected ${r.emoji.name}`));
         const counts = {};
         collector.on('end', async collected => {
@@ -64,7 +65,7 @@ client.on('message', async msg => {
             return reaction.emoji.name == '⏹' && user.id == msg.author.id; //client.emojis.first().name; 
         }
         
-        const endCollector = msg.createReactionCollector(endFilter, { time: 1800000 });
+        const endCollector = msg.createReactionCollector(endFilter, { time: pollTime});
         endCollector.on('collect', () => {
             console.log('found stop');
             console.log(collector.collected);
