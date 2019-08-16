@@ -1,6 +1,7 @@
 ﻿const { Client, Attachment } = require('discord.js')
 //const { token } = require('./auth.json');
 const token = process.env.TOKEN;
+const port = process.env.PORT;
 console.log(`This is a port ${ port } `);
 
 // const emojiCharacters = require('./emojiCharacters');
@@ -154,4 +155,5 @@ function printResults(result){
      return chart;
 }
 
-client.login(token);
+client.login(token).catch(e => console.error("Failed login " + e));
+
