@@ -8,4 +8,5 @@ Note: node-chartjs is at the time of writing only compatbile with chartjs@2.4.x
 ## Usage
 type the following
 ``` !poll <question> 😃 ☹ 😑```
-the bot will add the emoji as reactions and after a set period will reply with the results.
+the bot will add the emoji as reactions and after a set period will reply with the results. 
+If the creator of the poll reacts with ⏹ then the poll is closed.

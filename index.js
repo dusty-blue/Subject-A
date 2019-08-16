@@ -2,7 +2,7 @@
 //const { token } = require('./auth.json');
 const token = process.env.TOKEN;
 const port = process.env.PORT;
-console.log(`This is a port ${ port } `);
+console.log(`This is port ${ port }.... not really `);
 
 // const emojiCharacters = require('./emojiCharacters');
 const client = new Client();
@@ -132,6 +132,12 @@ function printResults(result){
             }]
         },
         options: {
+            legend: {
+                labels: {
+                    fontColor: 'white',
+                    fontSize: 16
+                }
+            }
         }
      };
      chartJsOptions.data.datasets[0].data = Object.values(voted);
