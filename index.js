@@ -1,5 +1,4 @@
 ﻿const { Client, Attachment } = require('discord.js')
-//const { token } = require('./auth.json');
 const token = process.env.TOKEN;
 const port = process.env.PORT;
 console.log(`Running on port ${ port }`);
