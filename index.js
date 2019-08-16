@@ -1,5 +1,8 @@
-﻿const { Client, Attachment } = require('discord.js');
-const { token } = require('./auth.json');
+﻿const { Client, Attachment } = require('discord.js')
+//const { token } = require('./auth.json');
+const token = process.env.TOKEN;
+console.log(`This is a port ${ port } `);
+
 // const emojiCharacters = require('./emojiCharacters');
 const client = new Client();
 

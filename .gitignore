@@ -3,3 +3,12 @@
 ################################################################################
 
 /node_modules
+/auth.json
+/Subject-A icon.psd
+/.vs
+/index_files
+/.eslintrc.json
+/.env
+/Subject-A icon.jpg
+*.jpeg
+/test_image.png

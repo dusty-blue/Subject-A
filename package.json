@@ -1,18 +1,22 @@
 {
-	"name": "Subject-A",
-	"version": "0.1.0",
-	"description": "My First Discord Bot Experiment",
-	"main": "index.js",
-	"author": "dusty-blue",
-	"dependencies": {
-		"canvas": "^2.5.0",
-		"chart.js": "~2.4.0",
-		"discord.js": "^11.5.0",
-		"eslint": "^5.16.0",
-		"node-chartjs": "0.0.7"
-	},
-	"scripts": {
-		"start": "node index.js",
-		"debug": "nodemon --inspect index.js"
-	}
+ "name": "Subject-A",
+ "version": "0.1.0",
+ "description": "My First Discord Bot Experiment",
+ "main": "index.js",
+ "author": "dusty-blue",
+ "dependencies": {
+  "canvas": "^2.5.0",
+  "chart.js": "~2.4.0",
+  "discord.js": "^11.5.0",
+  "node-chartjs": "0.0.7"
+ },
+ "devDependencies": {
+  "eslint": "^5.16.0",
+  "dotenv": "^8.0.0"
+ },
+ "scripts": {
+  "start": "node index.js",
+  "debug": "nodemon --inspect index.js",
+  "debug-env": "nodemon --inspect -r dotenv/config index.js"
+ }
 }
