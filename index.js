@@ -54,7 +54,9 @@ client.on('message', async msg => {
             try {
                 const buffer = await graph.toBuffer('image/png');
                 const attachment = new Attachment(buffer, 'awesome.png');
-                msg.channel.send(printResults(counts), attachment); 
+                const question = msg.content.match(/poll[\s\w+]+\?/g); 
+                console.log(question);
+                msg.channel.send(question + '\n' + printResults(counts)); 
             } catch(e) {
                 console.error('Failed to send results with error:\n' + e);
             }
