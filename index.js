@@ -8,7 +8,7 @@ const client = new Client();
 
 const { createCanvas, loadImage } = require('canvas');
 const Chart = require('node-chartjs');
-const pollTime = 12000; //6000=1 min time is in milliseconds 
+const pollTime = process.env.POLLTIME; //6000=1 min time is in milliseconds 
 
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}! ID is ${client.user.id}`);
@@ -25,7 +25,6 @@ client.on('message', async msg => {
                     return false;
                 }
                 voted[user.id] = reaction.emoji.id ? reaction.emoji.id : reaction.emoji.name;
-                console.log(voted);
                 return reactions.includes(reaction.emoji.id) | reactions.includes(reaction.emoji.name);
                 /*if (user.id != client.user.id) {
                     voted[user.id] = reaction.emoji.id ? reaction.emoji.id : reaction.emoji.name;
@@ -77,7 +76,7 @@ client.on('message', async msg => {
 
             const endCollector = msg.createReactionCollector(endFilter, { time: pollTime });
             endCollector.on('collect', () => {
-                console.log('found stop');
+                console.log('Stopping poll');
                 console.log(collector.collected);
                 collector.stop();
             });
