@@ -17,7 +17,7 @@
   "scripts": {
     "start": "node index.js",
     "debug": "nodemon --inspect index.js",
-    "debug-env": "nodemon --inspect -r dotenv/config index.js"
+    "debugenv": "nodemon --inspect -r dotenv/config index.js"
   },
   "engines": {
     "node": "10.15"
