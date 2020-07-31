@@ -13,6 +13,8 @@ Heroku CLI command:
 ## Usage
 type the following
 ``` !poll <question> 😃 ☹ 😑```
-the bot will add the emoji as reactions and after a set period will reply with the results. 
+The bot will add the emoji as reactions and after a set period will reply with the results. 
 The default time for polls is 20 minutes.
 If the creator of the poll reacts with ⏹ then the poll is closed.
+Default behaviour is to allow mulitple votes.
+Use the flag ``` -s ``` to only allow single votes per user, the last vote will be counted.
