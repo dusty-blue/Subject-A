@@ -6,7 +6,7 @@
   "author": "dusty-blue",
   "dependencies": {
     "canvas": "^2.5.0",
-    "chart.js": "~2.4.0",
+    "chart.js": "~2.9.4",
     "discord.js": "^11.5.0",
     "node-chartjs": "0.0.7"
   },
